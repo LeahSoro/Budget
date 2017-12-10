@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Budget" Class="BudgetDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=Budget;Integrated Security=True" SettingsObjectName="Budget.Data.Properties.Settings" SettingsPropertyName="BudgetConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Expenses" Member="Expenses">
+    <Type Name="Expense">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StoreId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="RecurringType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MethodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Method_Expense" Member="Method" ThisKey="MethodId" OtherKey="id" Type="Method" IsForeignKey="true" />
+      <Association Name="Store_Expense" Member="Store" ThisKey="StoreId" OtherKey="Id" Type="Store" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Method" Member="Methods">
+    <Type Name="Method">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Method_Expense" Member="Expenses" ThisKey="id" OtherKey="MethodId" Type="Expense" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Store" Member="Stores">
+    <Type Name="Store">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Store_Expense" Member="Expenses" ThisKey="Id" OtherKey="StoreId" Type="Expense" />
+    </Type>
+  </Table>
+</Database>

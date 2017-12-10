@@ -1,0 +1,41 @@
+﻿@using Budget.Data
+@using Budget.Models;
+@model ExpensesViewModel
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>Type</th>
+            <th>Store</th>
+            <th>
+                Date
+                <button class="glyphicon glyphicon-sort"></button>
+            </th>
+            <th>Amount</th>
+            <th>
+                <span class="glyphicon glyphicon-credit-card" /> Method
+            </th>
+            <th>Recurrence</th>
+            <th>Refund</th>
+
+        </tr>
+        @foreach (Expense expense in Model.expenses)
+        {
+            <tr>
+                <td>${expense.Type}</td>
+                <td>${expense.Store.Name}</td>
+                <td>${expense.Date.ToShortDateString()}</td>
+                <td>${expense.Amount}</td>
+                <td>${expense.Method}</td>
+                <td>${expense.RecurringType}</td>
+                <td>
+                    <a class="btn btn-success" href="/home/Refund?expense.id">Refund</a>
+                </td>
+            </tr>
+
+        }
+
+
+    </table>
+</div>
+
+
